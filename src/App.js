@@ -14,14 +14,16 @@ class App extends Component {
   startLiveVideo = () => {
     const {sessionReference} = this.state;
     const self = this;
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const PROJECT_ID = process.env.REACT_APP_PROJECT_ID;
     const header = {
-      'api-key': 'wU1mpeHkJhjzKVH_LQbkyU-xJSoaynAByisA3ozbTPWEAMtVkskbphBkshx5hxx3',
+      'api-key': API_KEY,
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     }
     const requestBody = {
     	"type": "stream",
-    	"project_id": "5fdf418188b62cf5412e43ee",
+    	"project_id": PROJECT_ID,
     	"custom": { "reference": sessionReference } 
     };
     axios.post(`https://api.mirror.me/api/v1/sessions`, requestBody, {'headers': header}).then(function(response){
