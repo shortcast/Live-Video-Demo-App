@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Navbar, Form, Container, Row, Col, Button} from 'react-bootstrap';
 import './App.css';
+//const jwt = require('jsonwebtoken');
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class App extends Component {
     const self = this;
     const API_KEY = process.env.REACT_APP_API_KEY;
     const PROJECT_ID = process.env.REACT_APP_PROJECT_ID;
+
     const header = {
       'api-key': API_KEY,
       'Content-Type': 'application/json',
@@ -26,10 +28,21 @@ class App extends Component {
     	"project_id": PROJECT_ID,
     	"custom": { "reference": sessionReference } 
     };
-    axios.post(`https://api.mirror.me/api/v1/sessions`, requestBody, {'headers': header}).then(function(response){
+    axios.post(`https://app.mirror.me/api/v1/sessions`, requestBody, {'headers': header}).then(function(response){
       const friendlyID = response.data.session.friendly_id;
-      const conferenceURL = `https://app.mirror.me/agents/conferences/${friendlyID}/send`;
-      self.setState({'currentView': 'send', 'conferenceURL': conferenceURL});
+      /* Construct the JWT auth token using the provided private key using a JWT library for your language of choice.
+      /  The payload will be {'email': agent_email'}
+      /   Header will be {  'alg': 'HS256'}
+      */
+      const consumerToken = '';
+      if (consumerToken) {
+        // You can also open the URL, in a new window
+        const conferenceURL = `https://app.mirror.me/agents/conferences/${friendlyID}/send?consumer_token=${consumerToken}`;
+        self.setState({'currentView': 'send', 'conferenceURL': conferenceURL});
+      } else {
+        alert("Consumer token not present");
+        
+      }
     });    
   }
   sessionReferenceChanged = (evt) => {
