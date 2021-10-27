@@ -14,4 +14,3 @@ npm start
 Or, ir you prefer using docker, you can run `docker-compose up`.
 
 You'll be able to access the web app on `localhost:8085`.
-
