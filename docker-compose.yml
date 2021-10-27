@@ -1,0 +1,11 @@
+version: '3.6'
+services:
+  integration-demo:
+    build: .
+    ports:
+      - "8085:8085"
+    container_name: integration-demo
+    stdin_open: true
+    volumes:
+       - .:/integration-demo
+       - /integration-demo/node_modules
